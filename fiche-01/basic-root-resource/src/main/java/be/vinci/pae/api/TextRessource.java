@@ -51,7 +51,8 @@ public class TextRessource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Text create(Text text) {
-		if (text == null || text.getContent() == null || text.getContent().isEmpty()|| text.getLevel() == null || text.getLevel().isEmpty())
+		if (text == null || text.getContent() == null || text.getContent().isEmpty() || text.getLevel() == null
+				|| text.getLevel().isEmpty())
 			throw new WebApplicationException(
 					Response.status(Status.BAD_REQUEST).entity("Lacks of mandatory info").type("text/plain").build());
 		DataServiceTextCollection.addText(text);
@@ -72,7 +73,20 @@ public class TextRessource {
 
 	@PUT
 	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Text updateText(Text text, @PathParam("id") int id) {
-		return null;
+		if (text == null || text.getContent() == null || text.getContent().isEmpty() || text.getLevel() == null
+				|| text.getLevel().isEmpty()) {
+			throw new WebApplicationException(
+					Response.status(Status.BAD_REQUEST).entity("Lacs of mandatory id info").type("text/plain").build());
+		}
+		text.setId(id);
+		Text updatedText = DataServiceTextCollection.uptadeText(text);
+		if(updatedText == null) {
+			throw new WebApplicationException(Response.status(Status.NOT_FOUND)
+					.entity("Ressource with id = " + id + " could not be found").type("text/plain").build());
+		}
+		return updatedText;
 	}
 }

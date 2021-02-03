@@ -11,14 +11,10 @@ public class Text {
 	private String content;
 	private final String[] levels = {"easy", "medium", "hard"};
 	private String level;
+	
 	public int getId() {
 		return id;
 	}
-
-	public String[] getLevels() {
-		return levels;
-	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -34,13 +30,13 @@ public class Text {
 		return StringEscapeUtils.escapeHtml4(level);
 	}
 	public void setLevel(String level) {
-		for (String string : levels) {
-			if(string.equals(level)){
+		for (String l : levels) {
+			if(l.equals(level)){
 				this.level = level;
 			}
 		}
 		throw new WebApplicationException(
-				Response.status(Status.NOT_ACCEPTABLE).entity("Not conform level! ").type("text/plain").build());
+				Response.status(Status.NOT_ACCEPTABLE).entity("Not conform level!").type("text/plain").build());
 
 	}
 }

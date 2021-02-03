@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.text.StringEscapeUtils;
 
@@ -50,7 +51,7 @@ public class DataServiceTextCollection {
 	}
 
 	public static List<Text> getTexts(String level) {
-		return null;
+		return texts.stream().filter(item -> item.getLevel().equals(level)).collect(Collectors.toList());
 	}
 
 	public static Text deleteText(int id) {
@@ -96,6 +97,17 @@ public class DataServiceTextCollection {
 		texts.add(text);
 		saveDataToFile();
 		return text;
+	}
+	public static Text uptadeText(Text text) {
+		if(texts.size() == 0 |text == null ) return null;
+		Text updatedText = getText(text.getId());
+		if(updatedText == null) return null;
+		text.setContent(StringEscapeUtils.escapeHtml4(text.getContent()));
+		text.setLevel(StringEscapeUtils.escapeHtml4(text.getLevel()));
+		int index = texts.indexOf(updatedText);
+		texts.set(index, text);
+		saveDataToFile();
+		return updatedText;
 	}
 
 }
