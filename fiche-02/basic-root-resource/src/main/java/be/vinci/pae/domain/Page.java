@@ -6,7 +6,7 @@ public class Page {
 	private String uri;
 	private String contenu;
 	private User auteur;
-	private String statusDePublication;
+	private String statusDePublication = "hidden";
 	private final String[] statusPossibles = { "hidden", "published" };
 
 	public int getId() {
@@ -22,7 +22,9 @@ public class Page {
 	}
 
 	public void setTitre(String titre) {
+
 		this.titre = titre;
+
 	}
 
 	public String getUri() {
@@ -38,7 +40,9 @@ public class Page {
 	}
 
 	public void setContenu(String contenu) {
+
 		this.contenu = contenu;
+
 	}
 
 	public User getAuteur() {
@@ -59,6 +63,7 @@ public class Page {
 				this.statusDePublication = statusDePublication;
 			}
 		}
+
 		return;
 	}
 
